@@ -1,0 +1,15 @@
+body {
+
+  margin: 2em 0;
+}
+
+a {
+  font-weight: normal;
+  color: blue;
+}
+
+a.active {
+  font-weight: bold;
+  color: black;
+}
+.price::after{content:' $'}
