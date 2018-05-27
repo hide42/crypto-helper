@@ -4,6 +4,7 @@
 <head>
   <script th:inline="javascript">
       var items = /*[[${items}]]*/ 'default';
+      console.log(items)
   </script>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <title>Sorting a Table with Vue</title>
@@ -34,7 +35,7 @@
 
     <tbody>
       <tr v-repeat="crypts | filterBy search | orderBy sortKey reverse">
-        <td><a href="{{symbol}}">{{ symbol }}</a></td>
+        <td><a href="info?s={{symbol}}">{{ symbol }}</a></td>
         <td class=price>{{ price }}</td>
         <td>{{ p1hour }}</td>
         <td>{{ p24hour }}</td>

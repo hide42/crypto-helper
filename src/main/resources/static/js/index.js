@@ -1,26 +1,26 @@
 new Vue({
-  el: '#demo',
+    el: '#demo',
 
-  data: {
-    sortKey: 'name',
+    data: {
+        sortKey: 'name',
 
-    reverse: false,
+        reverse: false,
 
-    search: '',
+        search: '',
 
-    columns: ['name', 'price', '1hr','24hr','7days'],
+        columns: ['name', 'price', 'p1hour','p24hour','p7days'],
 
-    newUser: {},
+        newUser: {},
 
-    crypts:  items
+        crypts:  items
 
-  },
+    },
 
-  methods: {
-    sortBy: function(sortKey) {
-      this.reverse = (this.sortKey == sortKey) ? ! this.reverse : false;
-
-      this.sortKey = sortKey;
+    methods: {
+        sortBy: function(sortKey) {
+            this.reverse = (this.sortKey == sortKey) ? ! this.reverse : false;
+            console.log(sortKey);
+            this.sortKey = sortKey;
+        }
     }
-  }
 });

@@ -43,7 +43,7 @@ public class InitParser {
             Elements percent1Hour = currencyTable.select("td:nth-child(8)");
             Elements percent24Hour = currencyTable.select("td:nth-child(9)");
             Elements percent7Days = currencyTable.select("td:nth-child(10)");
-            for (int i = 0; i < 11-2; i++) {
+            for (int i = 0; i < symbols.size()-3; i++) {
                 CryptoCurrency currency = CryptoCurrency.builder()
                         .symbol(symbols.get(i).text())
                         .price(Double.parseDouble(prices.get(i).text().replace("$","")))
@@ -53,7 +53,7 @@ public class InitParser {
                         .build();
                 System.out.println(currency.getSymbol());
                 saveInit(currency);
-                if(i==5)update(currency);
+                update(currency);
             }
         } catch (IOException e) {
             e.printStackTrace();

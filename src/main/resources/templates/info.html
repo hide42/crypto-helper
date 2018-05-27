@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <script th:inline="javascript">
+        var items = /*[[${items}]]*/ 'default';
+        var reqItem = /*[[${reqItem}]]*/  'default';
+        var needed;
+        for (var i = 0; i < items.length; i++) {
+            if(items[i]["symbol"]==reqItem){
+                needed=items[i];
+                break;
+            }
+        }
+        console.log(needed)
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Sorting a Table with Vue</title>
+
+
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+
+</head>
+
+<body>
+
+<div id="demo" class="container">
+    <input v-model="search" class="form-control" placeholder="Filter">
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th v-repeat="column: columns">
+                <a href="#" v-on="click: sortBy(column)" v-class="active: sortKey == column">
+                    {{ column | capitalize }}
+                </a>
+            </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr v-repeat="crypts | filterBy search | orderBy sortKey reverse">
+            <td><a href="info?s={{symbol}}">{{ symbol }}</a></td>
+            <td class=price>{{ price }}</td>
+            <td>{{ p1hour }}</td>
+            <td>{{ p24hour }}</td>
+            <td>{{ p7days }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/0.12.16/vue.min.js'></script>
+
+
+
+<script  src="/js/index.js"></script>
+
+
+
+
+</body>
+
+</html>
