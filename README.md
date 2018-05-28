@@ -1,5 +1,3 @@
-Исходя из данных положений, мной был
-сделан вывод о необходимости движения в сторону увеличения производительности и
-выработки стратегий регулирования, которые будут находиться над сетью и не влиять на её
-работу. Это позволит расширить область применения криптовалюты и укрепит её позиции в
-современной экономике.
+# econometric
+![swot](https://raw.githubusercontent.com/hide42/crypto-helper/master/imgs/swot.png)
+![stable](https://raw.githubusercontent.com/hide42/crypto-helper/master/imgs/stable.png)
