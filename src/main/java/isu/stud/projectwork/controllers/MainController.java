@@ -2,6 +2,7 @@ package isu.stud.projectwork.controllers;
 
 
 
+import isu.stud.projectwork.model.CryptoCurrency;
 import isu.stud.projectwork.parser.InitParser;
 import isu.stud.projectwork.repository.CryptoCurrencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,9 @@ public class MainController {
     }
     @RequestMapping("/info")
     public String info(@RequestParam("s") String s, Model model){
-        model.addAttribute("items", cryptoCurrencyRepository.findAll());
-        model.addAttribute("reqItem",s);
+        CryptoCurrency currency = cryptoCurrencyRepository.findById(s).get();
+        cryptoCurrencyRepository.updatePrices(currency);
+        model.addAttribute("items", currency);
         return "info";
     }
 

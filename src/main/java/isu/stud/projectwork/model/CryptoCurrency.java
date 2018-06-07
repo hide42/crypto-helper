@@ -18,6 +18,7 @@ public class CryptoCurrency implements Serializable{
     private double p1hour;
     private double p24hour;
     private double p7days;
+    private String url;
     // Market : prices
     private List<InfoCurrency> prices;
 

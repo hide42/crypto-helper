@@ -4,15 +4,8 @@
 <head>
     <script th:inline="javascript">
         var items = /*[[${items}]]*/ 'default';
-        var reqItem = /*[[${reqItem}]]*/  'default';
-        var needed;
-        for (var i = 0; i < items.length; i++) {
-            if(items[i]["symbol"]==reqItem){
-                needed=items[i];
-                break;
-            }
-        }
-        console.log(needed)
+        console.log(items);
+        items = items["prices"];
     </script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Sorting a Table with Vue</title>
@@ -43,11 +36,10 @@
 
         <tbody>
         <tr v-repeat="crypts | filterBy search | orderBy sortKey reverse">
-            <td><a href="info?s={{symbol}}">{{ symbol }}</a></td>
+            <td>{{ market }}</td>
             <td class=price>{{ price }}</td>
-            <td>{{ p1hour }}</td>
-            <td>{{ p24hour }}</td>
-            <td>{{ p7days }}</td>
+            <td><a href=${url}>{{ pair }}</a></td>
+            <td>{{ volume }}</td>
         </tr>
         </tbody>
     </table>
@@ -56,7 +48,7 @@
 
 
 
-<script  src="/js/index.js"></script>
+<script  src="/js/info.js"></script>
 
 
 

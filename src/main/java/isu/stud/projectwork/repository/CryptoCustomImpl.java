@@ -3,6 +3,7 @@ package isu.stud.projectwork.repository;
 import com.mongodb.client.result.UpdateResult;
 import isu.stud.projectwork.model.CryptoCurrency;
 import isu.stud.projectwork.model.InfoCurrency;
+import isu.stud.projectwork.parser.InitParser;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -27,14 +28,14 @@ public class CryptoCustomImpl implements CryptoCustom {
     @Override
     public UpdateResult updatePrices(CryptoCurrency cryptoCurrency) {
         Query searchQuery = new Query(Criteria.where("symbol").is(cryptoCurrency.getSymbol()));
-        return mongoTemplate.upsert(searchQuery, Update.update("prices", getPrices(cryptoCurrency.getSymbol())), CryptoCurrency.class);
+        return mongoTemplate.upsert(searchQuery, Update.update("prices", getPrices(cryptoCurrency.getUrl())), CryptoCurrency.class);
     }
 
-    public static List<InfoCurrency> getPrices(String symbol){
-
+    public static List<InfoCurrency> getPrices(String url){
+        System.out.println(url);
         List<InfoCurrency> list = new ArrayList();
         try {
-            Document doc = Jsoup.connect("https://coinmarketcap.com/currencies/"+symbol+"/#markets").get();
+            Document doc = Jsoup.connect("https://coinmarketcap.com"+url+"#markets").get();
             Elements currencyBody = doc.select("#markets-table > tbody");
             Element currencyTable = currencyBody.first();//
             Elements market = currencyTable.select("td:nth-child(2)>a");

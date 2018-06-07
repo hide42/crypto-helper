@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import org.jsoup.*;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,8 +31,6 @@ public class InitParser {
         cryptoCurrencyRepository.save(cryptoCurrency);
     }
 
-    @Transactional
-    public void update(CryptoCurrency cryptoCurrency){cryptoCurrencyRepository.updatePrices(cryptoCurrency);}
 
     public void initSymbols(){
         try {
@@ -50,10 +49,10 @@ public class InitParser {
                         .p1hour(Double.parseDouble(percent1Hour.get(i).text().replace("%","")))
                         .p24hour(Double.parseDouble(percent24Hour.get(i).text().replace("%","")))
                         .p7days(Double.parseDouble(percent7Days.get(i).text().replace("%","")))
+                        .url(symbols.get(i).select("a").first().attr("href"))
                         .build();
                 System.out.println(currency.getSymbol());
                 saveInit(currency);
-                update(currency);
             }
         } catch (IOException e) {
             e.printStackTrace();
