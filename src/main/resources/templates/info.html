@@ -5,7 +5,6 @@
     <script th:inline="javascript">
         var items = /*[[${items}]]*/ 'default';
         console.log(items);
-        items = items["prices"];
     </script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Sorting a Table with Vue</title>
@@ -37,9 +36,10 @@
         <tbody>
         <tr v-repeat="crypts | filterBy search | orderBy sortKey reverse">
             <td>{{ market }}</td>
-            <td class=price>{{ price }}</td>
-            <td><a href=${url}>{{ pair }}</a></td>
-            <td>{{ volume }}</td>
+            <td>{{ pair }}</td>
+            <td class=price><a href={{urlA}}>{{ priceA }}</a></td>
+            <td class=price><a href={{urlB}}>{{ priceB }}</a></td>
+            <td>{{ coef.toFixed(4) }}</td>
         </tr>
         </tbody>
     </table>

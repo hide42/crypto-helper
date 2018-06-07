@@ -8,7 +8,7 @@ new Vue({
 
         search: '',
 
-        columns: ['market','price','pair','volume'],
+        columns: ['market','pair','priceA','priceB','coef'],
 
         newUser: {},
 

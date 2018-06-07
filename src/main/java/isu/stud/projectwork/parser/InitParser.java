@@ -43,16 +43,21 @@ public class InitParser {
             Elements percent24Hour = currencyTable.select("td:nth-child(9)");
             Elements percent7Days = currencyTable.select("td:nth-child(10)");
             for (int i = 0; i < symbols.size()-3; i++) {
-                CryptoCurrency currency = CryptoCurrency.builder()
-                        .symbol(symbols.get(i).text())
-                        .price(Double.parseDouble(prices.get(i).text().replace("$","")))
-                        .p1hour(Double.parseDouble(percent1Hour.get(i).text().replace("%","")))
-                        .p24hour(Double.parseDouble(percent24Hour.get(i).text().replace("%","")))
-                        .p7days(Double.parseDouble(percent7Days.get(i).text().replace("%","")))
-                        .url(symbols.get(i).select("a").first().attr("href"))
-                        .build();
+                try {
+                    CryptoCurrency currency = CryptoCurrency.builder()
+                            .symbol(symbols.get(i).text())
+                            .price(Double.parseDouble(prices.get(i).text().replace("$", "")))
+                            .p1hour(Double.parseDouble(percent1Hour.get(i).text().replace("%", "")))
+                            .p24hour(Double.parseDouble(percent24Hour.get(i).text().replace("%", "")))
+                            .p7days(Double.parseDouble(percent7Days.get(i).text().replace("%", "").replace("?", "")))
+                            .url(symbols.get(i).select("a").first().attr("href"))
+                            .build();
+
                 System.out.println(currency.getSymbol());
-                saveInit(currency);
+                saveInit(currency);}
+                catch (NumberFormatException e){
+                    System.out.println("Нуль");
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

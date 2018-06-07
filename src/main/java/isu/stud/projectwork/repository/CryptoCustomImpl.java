@@ -31,7 +31,7 @@ public class CryptoCustomImpl implements CryptoCustom {
         return mongoTemplate.upsert(searchQuery, Update.update("prices", getPrices(cryptoCurrency.getUrl())), CryptoCurrency.class);
     }
 
-    public static List<InfoCurrency> getPrices(String url){
+    private static List<InfoCurrency> getPrices(String url){
         System.out.println(url);
         List<InfoCurrency> list = new ArrayList();
         try {
@@ -42,18 +42,32 @@ public class CryptoCustomImpl implements CryptoCustom {
             Elements pair = currencyTable.select("td:nth-child(3)");
             Elements price = currencyTable.select("td:nth-child(5)");
             Elements volume = currencyTable.select("td:nth-child(6)");
-            for (int i = 0; i < market.size()-2; i++) {
-                list.add(InfoCurrency.builder()
-                        .market(market.get(i).text())
-                        .pair(pair.get(i).text())
-                        .price(Double.parseDouble(price.get(i).text().replace("$","").replace("*","")))
-                        .volume(Double.parseDouble(volume.get(i).text().replace("%","")))
-                        .url(pair.get(i).select("a").first().attr("href"))
-                        .build());
+            //****** тут и нужно магию
+
+            for (int i = 0; i < market.size()-3; i++) {
+                for (int j = i+1; j < market.size()-2; j++) {
+                    //if volume > poroga
+                    //filters
+                    if(pair.get(i).text().equals(pair.get(j).text())) {
+                        double priceA=Double.parseDouble(price.get(i).text().replace("$", "").replace("*", ""));
+                        double priceB=Double.parseDouble(price.get(j).text().replace("$", "").replace("*", ""));
+                        list.add(
+                                InfoCurrency.builder()
+                                        .market(market.get(i).text()+" / "+market.get(j).text())
+                                        .pair(pair.get(i).text())
+                                        .priceA(priceA)
+                                        .priceB(priceB)
+                                        .urlA(pair.get(i).select("a").first().attr("href"))
+                                        .urlB(pair.get(j).select("a").first().attr("href"))
+                                        .coef(((priceB-priceA)/priceA)*100)
+                                        .build());
+                    }
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return list;
     }
+
 }

@@ -9,9 +9,11 @@ public class InfoCurrency {
 
     private String market;
     private String pair;
-    private String url;
-    private double price;
-    private double volume;
+    private String urlA;
+    private String urlB;
+    private double priceA;
+    private double priceB;
+    private double coef;
 
 
 }
