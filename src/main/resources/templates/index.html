@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
   <script th:inline="javascript">
@@ -20,6 +20,13 @@
 <body>
 
   <div id="demo" class="container">
+    <nav class="navbar">
+      <div class="container-fluid">
+        <ul class="navbar-header pull-right">
+          <a name="header" href="logout" class="navbar-brand"><span class="glyphicon glyphicon-log-in"></span> Logout</a>
+        </ul>
+      </div>
+    </nav>
   <input v-model="search" class="form-control" placeholder="Filter">
 
   <table class="table table-striped">
